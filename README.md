@@ -1,6 +1,6 @@
-# CS590 - SNHU Computer Science Portfolio
+# SNHU CS590 - Database Design & Development Portfolio
 
-Welcome to my portfolio repository for **CS590: Selected Topics in Computer Science** at Southern New Hampshire University (SNHU).
+Welcome to my portfolio repository for **CS590: Database Design & Development* at Southern New Hampshire University (SNHU).
 
 This repository contains my coursework, projects, and assignments organized across branches corresponding to each module in the course.
 
@@ -9,8 +9,8 @@ This repository contains my coursework, projects, and assignments organized acro
 The project branches are structured by modules (1 through 10), allowing for easy navigation of individual topics and milestones.
 
 *   `main` - The primary branch, containing the main repository structure and overall documentation.
-*   `module-1` - Milestones and assignments for Module 1.
-*   `module-2` - Milestones and assignments for Module 2.
+*   `module-1` - Data Modeling Fundamentals and Attributes.
+*   `module-2` - Relational Databases, PostgreSQL, Designing Schemas.
 *   `module-3` - Milestones and assignments for Module 3.
 *   `module-4` - Milestones and assignments for Module 4.
 *   `module-5` - Milestones and assignments for Module 5.
@@ -22,4 +22,4 @@ The project branches are structured by modules (1 through 10), allowing for easy
 
 ## Course Overview
 
-This course explores advanced algorithms, software engineering principles, and computing paradigms in computer science. Each module dives into specific theoretical and practical applications to build a comprehensive portfolio of developer skills.
+This course focuses on the principles of database design, implementation, and administration. It covers relational and non-relational database architectures, data modeling techniques (such as Entity-Relationship Diagrams and normalization), Structured Query Language (SQL) instruction, database optimization, transactions, security, and NoSQL solutions. Each module explores specific database design patterns and practical applications to build a comprehensive data engineering portfolio.
