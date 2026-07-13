@@ -1,6 +1,6 @@
 # SNHU CS590 - Database Design & Development Portfolio
 
-Welcome to my portfolio repository for **CS590: Database Design & Development* at Southern New Hampshire University (SNHU).
+Welcome to my portfolio repository for **CS590: Database Design & Development** at Southern New Hampshire University (SNHU).
 
 This repository contains my coursework, projects, and assignments organized across branches corresponding to each module in the course.
 
@@ -9,16 +9,16 @@ This repository contains my coursework, projects, and assignments organized acro
 The project branches are structured by modules (1 through 10), allowing for easy navigation of individual topics and milestones.
 
 *   `main` - The primary branch, containing the main repository structure and overall documentation.
-*   `module-1` - Data Modeling Fundamentals and Attributes.
-*   `module-2` - Relational Databases, PostgreSQL, Designing Schemas.
-*   `module-3` - Milestones and assignments for Module 3.
-*   `module-4` - Milestones and assignments for Module 4.
-*   `module-5` - Milestones and assignments for Module 5.
-*   `module-6` - Milestones and assignments for Module 6.
-*   `module-7` - Milestones and assignments for Module 7.
-*   `module-8` - Milestones and assignments for Module 8.
-*   `module-9` - Milestones and assignments for Module 9.
-*   `module-10` - Milestones and assignments for Module 10.
+*   `module-1` - Data Modeling and Schema Attributes
+*   `module-2` - Relational Databases and PostgreSQL
+*   `module-3` - ETL Processes and Query Validation
+*   `module-4` - DBMS Application Integration and CRUD
+*   `module-5` - Document Databases and Schema Design
+*   `module-6` - Graph Databases and Query Execution
+*   `module-7` - Dashboard Visualization and DBMS Integration
+*   `module-8` - Database Security, Laws, and Ethics
+*   `module-9` - Capstone Database Solution Design
+*   `module-10` - AI Ethics in Database Management
 
 ## Course Overview
 
