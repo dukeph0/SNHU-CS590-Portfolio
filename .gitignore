@@ -1,18 +1,10 @@
-# Python bytecode
 __pycache__/
 *.py[cod]
-
-# Virtual environments
+*.pyc
 venv/
 env/
-
-# Jupyter auto-saves
 .ipynb_checkpoints
-
-# OS & IDE metadata
 .DS_Store
 .vscode/
 .idea/
-
-# Environment / credentials
 .env
