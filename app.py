@@ -1,38 +1,46 @@
+import os
 import dash
 from dash import dcc, html
+from dotenv import load_dotenv
 from neo4j import GraphDatabase
 import pandas as pd
 import plotly.express as px
 
-# 1. Database Configuration
-uri = "bolt://localhost:7687"
-auth = ("neo4j", "password123")
+# Load environment variables from a local .env file
+load_dotenv()
 
-def loadData():
+# Secure Database Configuration with fallbacks
+URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+USER = os.getenv("NEO4J_USER", "neo4j")
+PASSWORD = os.getenv("NEO4J_PASSWORD", "password123")  # Fallback for local testing only
+
+AUTH = (USER, PASSWORD)
+
+def load_data():
     """Fetches cleaned graph payload datasets from Neo4j."""
-    driver = GraphDatabase.driver(uri, auth=auth)
+    driver = GraphDatabase.driver(URI, auth=AUTH)
     with driver.session() as session:
-        dfEngagement = pd.DataFrame(session.run("""
+        df_engagement = pd.DataFrame(session.run("""
             MATCH (q:Question)
             RETURN q.view_count AS Views, q.answer_count AS Answers, q.title AS Title
         """).data())
         
-        dfScores = pd.DataFrame(session.run("""
+        df_scores = pd.DataFrame(session.run("""
             MATCH (a:Answer)
             RETURN a.score AS Score, a.is_accepted AS IsAccepted
         """).data())
     driver.close()
-    return dfEngagement, dfScores
+    return df_engagement, df_scores
 
 # Load dataset outputs
-dfEngagement, dfScores = loadData()
+dfEngagement, dfScores = load_data()
 
 # Calculate Summary Metrics
-totalQuestions = len(dfEngagement)
-totalAnswers = len(dfScores)
+total_questions = len(dfEngagement)
+total_answers = len(dfScores)
 
-# 2. Build Interactive Visualizations
-figScatter = px.scatter(
+# Build Interactive Visualizations
+fig_scatter = px.scatter(
     dfEngagement, 
     x="Views", 
     y="Answers", 
@@ -43,9 +51,9 @@ figScatter = px.scatter(
     color_continuous_scale="Viridis",
     labels={"Views": "Total Views", "Answers": "Total Responses"}
 )
-figScatter.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig_scatter.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-figBox = px.box(
+fig_box = px.box(
     dfScores, 
     x="IsAccepted", 
     y="Score", 
@@ -54,9 +62,9 @@ figBox = px.box(
     color="IsAccepted",
     labels={"IsAccepted": "Accepted?", "Score": "Vote Weight / Score"}
 )
-figBox.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig_box.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 
-# 3. Create Clean-Themed Dash App Layout
+# Create Clean-Themed Dash App Layout
 app = dash.Dash(__name__)
 
 app.layout = html.Div(style={
@@ -78,13 +86,13 @@ app.layout = html.Div(style={
             'backgroundColor': '#1E1E1E', 'padding': '20px 40px', 'borderRadius': '10px', 'textAlign': 'center', 'border': '1px solid #333'
         }, children=[
             html.H3("Questions Analyzed", style={'fontSize': '14px', 'color': '#888888', 'textTransform': 'uppercase'}),
-            html.H1(f"{totalQuestions:,}", style={'fontSize': '36px', 'margin': '5px 0', 'color': '#00ADB5'})
+            html.H1(f"{total_questions:,}", style={'fontSize': '36px', 'margin': '5px 0', 'color': '#00ADB5'})
         ]),
         html.Div(style={
             'backgroundColor': '#1E1E1E', 'padding': '20px 40px', 'borderRadius': '10px', 'textAlign': 'center', 'border': '1px solid #333'
         }, children=[
             html.H3("Answers Ingested", style={'fontSize': '14px', 'color': '#888888', 'textTransform': 'uppercase'}),
-            html.H1(f"{totalAnswers:,}", style={'fontSize': '36px', 'margin': '5px 0', 'color': '#393E46'})
+            html.H1(f"{total_answers:,}", style={'fontSize': '36px', 'margin': '5px 0', 'color': '#393E46'})
         ])
     ]),
     
@@ -94,14 +102,14 @@ app.layout = html.Div(style={
         html.Div(style={
             'backgroundColor': '#1E1E1E', 'padding': '25px', 'borderRadius': '10px', 'border': '1px solid #333'
         }, children=[
-            dcc.Graph(figure=figScatter)
+            dcc.Graph(figure=fig_scatter)
         ]),
         
         # Box Card
         html.Div(style={
             'backgroundColor': '#1E1E1E', 'padding': '25px', 'borderRadius': '10px', 'border': '1px solid #333'
         }, children=[
-            dcc.Graph(figure=figBox)
+            dcc.Graph(figure=fig_box)
         ])
     ])
 ])
